@@ -1,0 +1,43 @@
+{
+  "name": "@affectively/aeon-invite",
+  "version": "1.0.0",
+  "description": "Beta shield, invite codes, waitlist management, and funnel analytics for controlled rollouts.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react.js",
+      "types": "./dist/react.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "bun test --coverage"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.7.0"
+  },
+  "peerDependencies": {
+    "@affectively/aeon-flags": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@affectively/aeon-flags": {
+      "optional": true
+    }
+  },
+  "license": "MIT",
+  "author": "Edgework DAO"
+}
