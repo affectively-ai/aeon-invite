@@ -1,7 +1,10 @@
 export type InviteCodeType = 'direct' | 'referral' | 'promo' | 'admin';
 export type InviteCodeStatus = 'active' | 'exhausted' | 'expired' | 'revoked';
 export type WaitlistStatus = 'waiting' | 'invited' | 'redeemed';
-export type ShieldVerdict = 'access_granted' | 'show_waitlist' | 'show_coming_soon';
+export type ShieldVerdict =
+  | 'access_granted'
+  | 'show_waitlist'
+  | 'show_coming_soon';
 export type AccessMethod = 'admin' | 'beta' | 'invite' | 'flag' | 'code';
 
 export interface InviteCode {
@@ -74,7 +77,11 @@ export interface InviteStore {
   getWaitlistEntry(email: string): Promise<WaitlistEntry | null>;
   addWaitlistEntry(entry: WaitlistEntry): Promise<void>;
   getWaitlistCount(): Promise<number>;
-  updateWaitlistStatus(email: string, status: WaitlistStatus, invitedAt?: string): Promise<void>;
+  updateWaitlistStatus(
+    email: string,
+    status: WaitlistStatus,
+    invitedAt?: string
+  ): Promise<void>;
 
   recordFunnelEvent(event: FunnelEvent): Promise<void>;
 }

@@ -35,7 +35,9 @@ export class FetchInviteStore implements InviteStore {
 
   async getInviteCode(code: string): Promise<InviteCode | null> {
     try {
-      return await this.get<InviteCode | null>(`/code?code=${encodeURIComponent(code)}`);
+      return await this.get<InviteCode | null>(
+        `/code?code=${encodeURIComponent(code)}`
+      );
     } catch {
       return null;
     }
@@ -51,7 +53,9 @@ export class FetchInviteStore implements InviteStore {
 
   async getRedeemedCodes(userId: string): Promise<InviteCode[]> {
     try {
-      const result = await this.get<{ codes: InviteCode[] }>(`/redeemed?userId=${encodeURIComponent(userId)}`);
+      const result = await this.get<{ codes: InviteCode[] }>(
+        `/redeemed?userId=${encodeURIComponent(userId)}`
+      );
       return result.codes;
     } catch {
       return [];
@@ -60,7 +64,9 @@ export class FetchInviteStore implements InviteStore {
 
   async getWaitlistEntry(email: string): Promise<WaitlistEntry | null> {
     try {
-      return await this.get<WaitlistEntry | null>(`/waitlist/entry?email=${encodeURIComponent(email)}`);
+      return await this.get<WaitlistEntry | null>(
+        `/waitlist/entry?email=${encodeURIComponent(email)}`
+      );
     } catch {
       return null;
     }

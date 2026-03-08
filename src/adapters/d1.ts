@@ -153,7 +153,15 @@ export class D1InviteStore implements InviteStore {
       maxUses: (row.max_uses ?? row.maxUses) as number | undefined,
       currentUses: ((row.current_uses ?? row.currentUses) as number) ?? 0,
       status: row.status as InviteCodeStatus,
-      metadata: row.metadata ? JSON.parse(row.metadata as string) : undefined,
+      metadata: row.metadata
+        ? (() => {
+            try {
+              return JSON.parse(row.metadata as string);
+            } catch {
+              return undefined;
+            }
+          })()
+        : undefined,
     };
   }
 
@@ -166,7 +174,15 @@ export class D1InviteStore implements InviteStore {
       invitedAt: (row.invited_at ?? row.invitedAt) as string | undefined,
       source: row.source as string | undefined,
       referredBy: (row.referred_by ?? row.referredBy) as string | undefined,
-      metadata: row.metadata ? JSON.parse(row.metadata as string) : undefined,
+      metadata: row.metadata
+        ? (() => {
+            try {
+              return JSON.parse(row.metadata as string);
+            } catch {
+              return undefined;
+            }
+          })()
+        : undefined,
     };
   }
 }

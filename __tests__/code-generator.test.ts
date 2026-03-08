@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'bun:test';
-import { generateInviteCode, validateCodeFormat } from '../src/code-generator.js';
+import {
+  generateInviteCode,
+  validateCodeFormat,
+} from '../src/code-generator.js';
 
 describe('code-generator', () => {
   it('should generate codes in AEON-XXXX-XXXX format', () => {

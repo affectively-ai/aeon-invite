@@ -10,10 +10,7 @@ interface D1PreparedStatement {
 }
 
 export class D1Analytics implements FunnelAnalytics {
-  constructor(
-    private db: D1Database,
-    private appName?: string
-  ) {}
+  constructor(private db: D1Database, private appName?: string) {}
 
   track(event: FunnelEvent): void {
     const e = { ...event, app: event.app ?? this.appName };
@@ -33,6 +30,8 @@ export class D1Analytics implements FunnelAnalytics {
         e.metadata ? JSON.stringify(e.metadata) : null
       )
       .run()
-      .catch((err) => console.error('[aeon-invite] D1Analytics write failed:', err));
+      .catch((err) =>
+        console.error('[aeon-invite] D1Analytics write failed:', err)
+      );
   }
 }

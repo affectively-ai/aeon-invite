@@ -86,7 +86,11 @@ export class InviteManager {
   async createInviteCode(
     type: InviteCodeType,
     createdBy: string,
-    opts?: { maxUses?: number; expiresAt?: string; metadata?: Record<string, unknown> }
+    opts?: {
+      maxUses?: number;
+      expiresAt?: string;
+      metadata?: Record<string, unknown>;
+    }
   ): Promise<InviteCode> {
     const invite: InviteCode = {
       code: generateInviteCode(),
@@ -152,7 +156,8 @@ export class InviteManager {
   private isCodeUsable(code: InviteCode): boolean {
     if (code.status !== 'active') return false;
     if (code.expiresAt && new Date(code.expiresAt) < new Date()) return false;
-    if (code.maxUses !== undefined && code.currentUses >= code.maxUses) return false;
+    if (code.maxUses !== undefined && code.currentUses >= code.maxUses)
+      return false;
     return true;
   }
 }

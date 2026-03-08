@@ -44,10 +44,16 @@ export function InviteProvider({
       return;
     }
     setLoading(true);
-    manager.evaluate(context).then((result) => {
-      setEvaluation(result);
-      setLoading(false);
-    });
+    manager
+      .evaluate(context)
+      .then((result) => {
+        setEvaluation(result);
+        setLoading(false);
+      })
+      .catch(() => {
+        setEvaluation({ verdict: 'show_waitlist' });
+        setLoading(false);
+      });
   }, [manager, context]);
 
   useEffect(() => {
@@ -88,7 +94,12 @@ export function useShield(): {
 } {
   const ctx = useContext(InviteCtx);
   if (!ctx) {
-    return { verdict: null, method: undefined, loading: true, waitlistPosition: undefined };
+    return {
+      verdict: null,
+      method: undefined,
+      loading: true,
+      waitlistPosition: undefined,
+    };
   }
   return {
     verdict: ctx.evaluation?.verdict ?? null,

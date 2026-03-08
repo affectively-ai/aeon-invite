@@ -10,6 +10,7 @@ export class MemoryInviteStore implements InviteStore {
   private codes: Map<string, InviteCode> = new Map();
   private waitlist: Map<string, WaitlistEntry> = new Map();
   private redeemedByUser: Map<string, InviteCode[]> = new Map();
+  private static readonly MAX_EVENTS = 10_000;
   private events: FunnelEvent[] = [];
 
   async getInviteCode(code: string): Promise<InviteCode | null> {
@@ -24,7 +25,10 @@ export class MemoryInviteStore implements InviteStore {
     const invite = this.codes.get(code);
     if (invite) {
       invite.currentUses += 1;
-      if (invite.maxUses !== undefined && invite.currentUses >= invite.maxUses) {
+      if (
+        invite.maxUses !== undefined &&
+        invite.currentUses >= invite.maxUses
+      ) {
         invite.status = 'exhausted';
       }
     }
@@ -60,6 +64,9 @@ export class MemoryInviteStore implements InviteStore {
 
   async recordFunnelEvent(event: FunnelEvent): Promise<void> {
     this.events.push({ ...event });
+    if (this.events.length > MemoryInviteStore.MAX_EVENTS) {
+      this.events = this.events.slice(-MemoryInviteStore.MAX_EVENTS);
+    }
   }
 
   // Test helpers
