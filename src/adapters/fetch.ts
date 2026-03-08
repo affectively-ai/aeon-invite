@@ -7,11 +7,45 @@ import type {
 } from '../types.js';
 
 /**
+ * Resolve the invite API base URL.
+ * All invite routes are centralized on edge-web-app.
+ * When running on that origin, use relative URLs; otherwise cross-origin.
+ */
+export function getInviteApiUrl(): string {
+  if (typeof window === 'undefined') return '';
+  const h = window.location.hostname;
+
+  // Already on the invite API origin
+  if (h.includes('edge-web-app') || h.includes('affectively-app'))
+    return '';
+
+  // Local dev — proxy or same origin
+  if (h === 'localhost' || h === '127.0.0.1')
+    return '';
+
+  // Dev environment
+  if (h.startsWith('dev-') || h.startsWith('dev.'))
+    return 'https://dev-www-edge-web-app.edgework.ai';
+
+  // Staging
+  if (h.startsWith('staging-') || h.startsWith('staging.'))
+    return 'https://staging-www-edge-web-app.edgework.ai';
+
+  // Production
+  return 'https://www-edge-web-app.edgework.ai';
+}
+
+/**
  * Client-side InviteStore that delegates to worker API routes.
- * Points to /api/invite/* endpoints on the same origin.
+ * Points to /api/invite/* endpoints — uses getInviteApiUrl() by default
+ * to route cross-origin to the central invite API on edge-web-app.
  */
 export class FetchInviteStore implements InviteStore {
-  constructor(private baseUrl = '') {}
+  constructor(private baseUrl?: string) {
+    if (baseUrl === undefined) {
+      this.baseUrl = getInviteApiUrl();
+    }
+  }
 
   private async post<T>(path: string, body: unknown): Promise<T> {
     const res = await fetch(`${this.baseUrl}/api/invite${path}`, {

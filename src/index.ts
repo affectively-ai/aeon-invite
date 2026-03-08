@@ -9,5 +9,5 @@ export {
 export { D1Analytics } from './d1-analytics.js';
 export { MemoryInviteStore } from './adapters/memory.js';
 export { D1InviteStore } from './adapters/d1.js';
-export { FetchInviteStore } from './adapters/fetch.js';
+export { FetchInviteStore, getInviteApiUrl } from './adapters/fetch.js';
 export type * from './types.js';
