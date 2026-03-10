@@ -1,6 +1,6 @@
 {
   "name": "@affectively/aeon-invite",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "description": "Beta shield, invite codes, waitlist management, and funnel analytics for controlled rollouts.",
   "type": "module",
   "main": "dist/index.js",
@@ -39,5 +39,5 @@
     }
   },
   "license": "MIT",
-  "author": "Edgework DAO"
+  "author": "Taylor William Buley (https://buley.fyi)"
 }

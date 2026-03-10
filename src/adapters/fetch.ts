@@ -16,12 +16,10 @@ export function getInviteApiUrl(): string {
   const h = window.location.hostname;
 
   // Already on the invite API origin
-  if (h.includes('edge-web-app') || h.includes('affectively-app'))
-    return '';
+  if (h.includes('edge-web-app') || h.includes('affectively-app')) return '';
 
   // Local dev — proxy or same origin
-  if (h === 'localhost' || h === '127.0.0.1')
-    return '';
+  if (h === 'localhost' || h === '127.0.0.1') return '';
 
   // Dev environment
   if (h.startsWith('dev-') || h.startsWith('dev.'))
